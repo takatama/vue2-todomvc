@@ -17,12 +17,19 @@ describe('ToDo', () => {
   })
 
   it('renders todos after calling addTodo()', async () => {
-    await wrapper.vm.addTodo('1st task')
+    const input = wrapper.find('.new-todo')
+    await input.setValue('1st task')
+    await input.trigger('keyup.enter')
+
     const todos1 = wrapper.findAll('.todo')
     expect(todos1.length).toBe(1)
+    expect(input.element.value).toBe('')
 
-    await wrapper.vm.addTodo('2nd task')
+    await input.setValue('2nd task')
+    await input.trigger('keyup.enter')
+
     const todos2 = wrapper.findAll('.todo')
     expect(todos2.length).toBe(2)
+    expect(input.element.value).toBe('')
   })
 })
