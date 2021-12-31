@@ -2,7 +2,10 @@
   <div>
     <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo"></input>
     <ul class="todo-list">
-      <li class="todo" v-for="todo in todos" :key="todo.id">{{ todo.title }}</li>
+      <li class="todo" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
+        <input class="toggle" type="checkbox" v-model="todo.completed" />
+        <label>{{ todo.title }}</label>
+      </li>
     </ul>
   </div>
 </template>

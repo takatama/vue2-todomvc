@@ -32,4 +32,21 @@ describe('ToDo', () => {
     expect(todos2.length).toBe(2)
     expect(input.element.value).toBe('')
   })
+
+  it('renders completed class after toggles the fisrt todo', async () => {
+    expect(wrapper.findAll('.completed').length).toBe(0)
+
+    const newTodo = wrapper.find('.new-todo')
+    await newTodo.setValue('1st task')
+    await newTodo.trigger('keyup.enter')
+    expect(wrapper.findAll('.completed').length).toBe(0)
+
+    const toggles = wrapper.findAll('.toggle')
+    expect(toggles.length).toBe(1)
+    await toggles.at(0).trigger('click')
+    expect(wrapper.findAll('.completed').length).toBe(1)
+
+    await toggles.at(0).trigger('click')
+    expect(wrapper.findAll('.completed').length).toBe(0)
+  })
 })
