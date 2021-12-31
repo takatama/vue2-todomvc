@@ -11,4 +11,8 @@ afterEach(() => {
   wrapper.destroy()
 })
 
-describe('ToDo', () => {})
+describe('ToDo', () => {
+  it('renders a todo-list', () => {
+    expect(wrapper.find('.todo-list').exists()).toBe(true)
+  })
+})

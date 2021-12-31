@@ -1,5 +1,5 @@
 <template>
-  
+  <ul class="todo-list"></ul>
 </template>
 
 <script>
