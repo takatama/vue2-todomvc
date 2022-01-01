@@ -18,7 +18,7 @@ export default {
       const title = this.newTodo.trim()
       if (!title) return
       this.todos.push({
-        id: this.todos.length, title, completed: false
+        id: this.uid++, title, completed: false
       })
       this.newTodo = ''
     },
@@ -30,7 +30,8 @@ export default {
   data() {
     return {
       todos: [],
-      newTodo: ''
+      newTodo: '',
+      uid: 0
     }
   }
 }

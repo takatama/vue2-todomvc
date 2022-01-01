@@ -62,4 +62,16 @@ describe('ToDo', () => {
     await destroy.trigger('click')
     expect(wrapper.findAll('.destroy').length).toBe(0)
   })
+
+  it('increments todo id if some todos are destroyed', async () => {
+    await addTodo('1st task')
+    expect(wrapper.vm.todos[0].id).toBe(0)
+    await addTodo('2nd task')
+    expect(wrapper.vm.todos[1].id).toBe(1)
+
+    const destroy2nd = wrapper.findAll('.destroy').at(1)
+    await destroy2nd.trigger('click')
+    await addTodo('3rd task')
+    expect(wrapper.vm.todos[1].id).toBe(2)
+  })
 })
