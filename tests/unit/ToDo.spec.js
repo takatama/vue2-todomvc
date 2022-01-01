@@ -3,6 +3,12 @@ import ToDo from '@/components/ToDo.vue'
 
 let wrapper = null;
 
+const addTodo = async (title) => {
+  const newTodo = wrapper.find('.new-todo')
+  await newTodo.setValue(title)
+  await newTodo.trigger('keyup.enter')
+}
+
 beforeEach(() => {
   wrapper = shallowMount(ToDo)
 })
@@ -17,28 +23,19 @@ describe('ToDo', () => {
   })
 
   it('renders todos after calling addTodo()', async () => {
-    const input = wrapper.find('.new-todo')
-    await input.setValue('1st task')
-    await input.trigger('keyup.enter')
-
+    await addTodo('1st task')
     const todos1 = wrapper.findAll('.todo')
     expect(todos1.length).toBe(1)
-    expect(input.element.value).toBe('')
+    expect(wrapper.find('.new-todo').element.value).toBe('')
 
-    await input.setValue('2nd task')
-    await input.trigger('keyup.enter')
-
+    await addTodo('2nd task')
     const todos2 = wrapper.findAll('.todo')
     expect(todos2.length).toBe(2)
-    expect(input.element.value).toBe('')
+    expect(wrapper.find('.new-todo').element.value).toBe('')
   })
 
   it('renders completed class after toggles the fisrt todo', async () => {
-    expect(wrapper.findAll('.completed').length).toBe(0)
-
-    const newTodo = wrapper.find('.new-todo')
-    await newTodo.setValue('1st task')
-    await newTodo.trigger('keyup.enter')
+    await addTodo('1st task')
     expect(wrapper.findAll('.completed').length).toBe(0)
 
     const toggles = wrapper.findAll('.toggle')
