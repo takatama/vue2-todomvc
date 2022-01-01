@@ -54,4 +54,12 @@ describe('ToDo', () => {
     await addTodo('2nd task')
     expect(wrapper.findAll('.destroy').length).toBe(2)
   })
+
+  it('removes a todo after clicking the destroy button for it', async () => {
+    await addTodo('1st task')
+    expect(wrapper.findAll('.destroy').length).toBe(1)
+    const destroy = wrapper.findAll('.destroy').at(0)
+    await destroy.trigger('click')
+    expect(wrapper.findAll('.destroy').length).toBe(0)
+  })
 })

@@ -5,7 +5,7 @@
       <li class="todo" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
         <input class="toggle" type="checkbox" v-model="todo.completed" />
         <label>{{ todo.title }}</label>
-        <button class="destroy "/>
+        <button class="destroy" @click="removeTodo(todo)"/>
       </li>
     </ul>
   </div>
@@ -21,6 +21,10 @@ export default {
         id: this.todos.length, title, completed: false
       })
       this.newTodo = ''
+    },
+    removeTodo(todo) {
+      const i = this.todos.findIndex(t => t.id === todo.id)
+      this.todos.splice(i, 1)
     }
   },
   data() {
