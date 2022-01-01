@@ -5,6 +5,7 @@
       <li class="todo" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
         <input class="toggle" type="checkbox" v-model="todo.completed" />
         <label>{{ todo.title }}</label>
+        <button class="destroy "/>
       </li>
     </ul>
   </div>

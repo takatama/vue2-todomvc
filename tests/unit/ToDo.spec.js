@@ -46,4 +46,12 @@ describe('ToDo', () => {
     await toggles.at(0).trigger('click')
     expect(wrapper.findAll('.completed').length).toBe(0)
   })
+
+  it('renders destroy button for each todo', async () => {
+    expect(wrapper.findAll('.destroy').length).toBe(0)
+    await addTodo('1st task')
+    expect(wrapper.findAll('.destroy').length).toBe(1)
+    await addTodo('2nd task')
+    expect(wrapper.findAll('.destroy').length).toBe(2)
+  })
 })
