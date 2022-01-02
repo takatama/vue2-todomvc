@@ -62,8 +62,13 @@ export default {
     filteredTodos() {
       return this.filter[this.visibility]()
     },
-    allDone() {
-      return this.filter.active().length === 0
+    allDone: {
+      get() {
+        return this.filter.active().length === 0
+      },
+      set(value) {
+        this.todos.forEach(todo => todo.completed = value)
+      }
     }
   },
   created() {

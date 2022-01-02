@@ -189,5 +189,12 @@ describe('ToDo', () => {
 
     await wrapper.find('.toggle').trigger('click')
     expect(wrapper.find('.toggle-all').element.checked).toBe(true)
+
+    await addTodo('2nd task')
+    expect(wrapper.find('.toggle-all').element.checked).toBe(false)
+
+    await wrapper.find('.toggle-all').trigger('click')
+    expect(wrapper.find('.toggle-all').element.checked).toBe(true)
+    expect(wrapper.findAll('.completed').length).toBe(2)
   })
 })
