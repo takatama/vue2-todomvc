@@ -179,4 +179,15 @@ describe('ToDo', () => {
     expect(wrapper.findAll('.todo').length).toBe(3)
     expect(wrapper.findAll('.todo').at(0).text()).toBe('1st task')
   })
+
+  it('renders toggle-all checkbox', async () => {
+    expect(wrapper.find('.toggle-all').exists()).toBe(true)
+    expect(wrapper.find('.toggle-all').element.checked).toBe(true)
+
+    await addTodo('1st task')
+    expect(wrapper.find('.toggle-all').element.checked).toBe(false)
+
+    await wrapper.find('.toggle').trigger('click')
+    expect(wrapper.find('.toggle-all').element.checked).toBe(true)
+  })
 })

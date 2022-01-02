@@ -1,5 +1,6 @@
 <template>
   <div>
+    <input class="toggle-all" type="checkbox" v-model="allDone" />
     <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo" />
     <ul class="todo-list">
       <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
@@ -60,6 +61,9 @@ export default {
   computed: {
     filteredTodos() {
       return this.filter[this.visibility]()
+    },
+    allDone() {
+      return this.filter.active().length === 0
     }
   },
   created() {
