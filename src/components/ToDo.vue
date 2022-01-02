@@ -51,7 +51,7 @@ export default {
     }
   },
   directives: {
-    "todo-focus": function (el, binding) {
+    "todo-focus": (el, binding) => {
       if (binding.value) {
         el.focus()
       } 
@@ -63,25 +63,24 @@ export default {
     }
   },
   created() {
-    const that = this
     this.filter = {
-      completed() {
-        return that.todos.filter(todo => todo.completed)
+      completed: () => {
+        return this.todos.filter(todo => todo.completed)
       },
-      active() {
-        return that.todos.filter(todo => !todo.completed)
+      active: () => {
+        return this.todos.filter(todo => !todo.completed)
       },
-      all() {
-        return that.todos
+      all: () => {
+        return this.todos
       }
     }
-    this.onHashChange = function () {
+    this.onHashChange = () => {
       let visibility = window.location.hash.replace(/#\/?/, '')
-      if (!that.filter[visibility]) {
+      if (!this.filter[visibility]) {
         visibility = 'all'
         window.location.hash = ''
       }
-      that.visibility = visibility
+      this.visibility = visibility
     }
     window.addEventListener('hashchange', this.onHashChange)
     this.onHashChange()
