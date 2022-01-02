@@ -129,4 +129,18 @@ describe('ToDo', () => {
     await wrapper.find('label').trigger('dblclick')
     expect(document.activeElement.className).toBe('edit')
   })
+
+  it('renders filtered todos based on visilibity', async () => {
+    await addTodo('1st task')
+    await addTodo('2nd task')
+    await addTodo('3rd task')
+    expect(wrapper.findAll('.todo').length).toBe(3)
+
+    await wrapper.find('.toggle').trigger('click')
+    expect(wrapper.findAll('.todo').length).toBe(3)
+
+    await wrapper.setData( { visibility: 'completed' })
+    expect(wrapper.findAll('.todo').length).toBe(1)
+    expect(wrapper.findAll('.todo').at(0).text()).toBe('1st task')
+  })
 })

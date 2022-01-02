@@ -2,7 +2,7 @@
   <div>
     <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo" />
     <ul class="todo-list">
-      <li class="todo" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+      <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
         <div class="view" v-show="todo != editedTodo">
           <input class="toggle" type="checkbox" v-model="todo.completed" />
           <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
@@ -46,7 +46,8 @@ export default {
       todos: [],
       newTodo: '',
       uid: 0,
-      editedTodo: ''
+      editedTodo: '',
+      visibility: 'all'
     }
   },
   directives: {
@@ -55,10 +56,16 @@ export default {
         el.focus()
       } 
     }
+  },
+  computed: {
+    filteredTodos() {
+      if (this.visibility === 'completed') return this.todos.filter(todo => todo.completed)
+      return this.todos
+    }
   }
 }
 </script>
 
 <style>
-@import 'https://unpkg.com/todomvc-app-css@2.4.1/index.css';
+
 </style>
