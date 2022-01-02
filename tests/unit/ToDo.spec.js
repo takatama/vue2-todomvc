@@ -10,7 +10,9 @@ const addTodo = async (title) => {
 }
 
 beforeEach(() => {
-  wrapper = shallowMount(ToDo)
+  wrapper = shallowMount(ToDo, {
+    attachTo: document.body
+  })
 })
 
 afterEach(() => {
@@ -119,5 +121,12 @@ describe('ToDo', () => {
     await editInput.setValue('edited 1st task')
     await editInput.trigger('keyup.esc')
     expect(wrapper.find('label').text()).toEqual('1st task')
+  })
+
+  it('gets focus to editing input when start editing', async () => {
+    expect(document.activeElement.className).not.toBe('edit')
+    await addTodo('1st task')
+    await wrapper.find('label').trigger('dblclick')
+    expect(document.activeElement.className).toBe('edit')
   })
 })

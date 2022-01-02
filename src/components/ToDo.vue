@@ -8,7 +8,7 @@
           <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
           <button class="destroy" @click="removeTodo(todo)" />
         </div>
-        <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)" @blur="doneEdit(todo)" @keyup.esc="cancelEdit(todo)">
+        <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)" @blur="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" v-todo-focus="todo == editedTodo">
       </li>
     </ul>
   </div>
@@ -48,10 +48,17 @@ export default {
       uid: 0,
       editedTodo: ''
     }
+  },
+  directives: {
+    "todo-focus": function (el, binding) {
+      if (binding.value) {
+        el.focus()
+      } 
+    }
   }
 }
 </script>
 
 <style>
-
+@import 'https://unpkg.com/todomvc-app-css@2.4.1/index.css';
 </style>
