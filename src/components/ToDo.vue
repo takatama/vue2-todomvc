@@ -60,6 +60,7 @@ export default {
   computed: {
     filteredTodos() {
       if (this.visibility === 'completed') return this.todos.filter(todo => todo.completed)
+      if (this.visibility === 'active') return this.todos.filter(todo => !todo.completed)
       return this.todos
     }
   }

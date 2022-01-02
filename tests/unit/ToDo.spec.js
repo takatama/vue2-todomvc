@@ -142,5 +142,9 @@ describe('ToDo', () => {
     await wrapper.setData( { visibility: 'completed' })
     expect(wrapper.findAll('.todo').length).toBe(1)
     expect(wrapper.findAll('.todo').at(0).text()).toBe('1st task')
+
+    await wrapper.setData( { visibility: 'active' })
+    expect(wrapper.findAll('.todo').length).toBe(2)
+    expect(wrapper.findAll('.todo').at(0).text()).toBe('2nd task')
   })
 })
