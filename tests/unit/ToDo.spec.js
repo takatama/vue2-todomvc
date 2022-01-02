@@ -99,7 +99,20 @@ describe('ToDo', () => {
     expect(wrapper.findAll('.view label').at(0).text()).toEqual('edited 1st task')
   })
 
-  it('renders original todo if editing is cancled', async () => {
+  it('renders edited todo when blur', async () => {
+    await addTodo('1st task')
+    const label1st = wrapper.findAll('.view label').at(0)
+    expect(label1st.text()).toEqual('1st task')
+
+    await label1st.trigger('dblclick')
+    const editInput = wrapper.findAll('.edit').at(0)
+    await editInput.setValue('edited 1st task')
+    await editInput.trigger('blur')
+    expect(wrapper.find('.view').isVisible()).toBe(true)
+    expect(wrapper.findAll('.view label').at(0).text()).toEqual('edited 1st task')
+  })
+
+  it('renders original todo if editing is canceled', async () => {
     await addTodo('1st task')
     await wrapper.find('label').trigger('dblclick')
     const editInput = wrapper.find('.edit')
