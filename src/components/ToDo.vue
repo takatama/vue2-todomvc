@@ -59,17 +59,27 @@ export default {
   },
   computed: {
     filteredTodos() {
-      if (this.visibility === 'completed') return this.todos.filter(todo => todo.completed)
-      if (this.visibility === 'active') return this.todos.filter(todo => !todo.completed)
-      return this.todos
+      return this.filter[this.visibility]()
     }
   },
   created() {
     const that = this
+    this.filter = {
+      completed() {
+        return that.todos.filter(todo => todo.completed)
+      },
+      active() {
+        return that.todos.filter(todo => !todo.completed)
+      },
+      all() {
+        return that.todos
+      }
+    }
     this.onHashChange = function () {
       let visibility = window.location.hash.replace(/#\/?/, '')
-      if (visibility !== 'completed' && visibility !== 'active') {
+      if (!that.filter[visibility]) {
         visibility = 'all'
+        window.location.hash = ''
       }
       that.visibility = visibility
     }
