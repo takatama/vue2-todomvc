@@ -146,5 +146,37 @@ describe('ToDo', () => {
     await wrapper.setData( { visibility: 'active' })
     expect(wrapper.findAll('.todo').length).toBe(2)
     expect(wrapper.findAll('.todo').at(0).text()).toBe('2nd task')
+
+    await wrapper.setData( { visibility: 'all' })
+    expect(wrapper.findAll('.todo').length).toBe(3)
+    expect(wrapper.findAll('.todo').at(0).text()).toBe('1st task')
+  })
+
+  it('fires hashchange', async () => {
+    await addTodo('1st task')
+    await addTodo('2nd task')
+    await addTodo('3rd task')
+    expect(wrapper.findAll('.todo').length).toBe(3)
+
+    await wrapper.find('.toggle').trigger('click')
+    expect(wrapper.findAll('.todo').length).toBe(3)
+
+    window.location.hash = '/completed'
+    await window.dispatchEvent(new Event('hashchange'))
+    expect(wrapper.vm.visibility).toBe('completed')
+    expect(wrapper.findAll('.todo').length).toBe(1)
+    expect(wrapper.findAll('.todo').at(0).text()).toBe('1st task')
+
+    window.location.hash = '/active'
+    await window.dispatchEvent(new Event('hashchange'))
+    expect(wrapper.vm.visibility).toBe('active')
+    expect(wrapper.findAll('.todo').length).toBe(2)
+    expect(wrapper.findAll('.todo').at(0).text()).toBe('2nd task')
+
+    window.location.hash = '/all'
+    await window.dispatchEvent(new Event('hashchange'))
+    expect(wrapper.vm.visibility).toBe('all')
+    expect(wrapper.findAll('.todo').length).toBe(3)
+    expect(wrapper.findAll('.todo').at(0).text()).toBe('1st task')
   })
 })

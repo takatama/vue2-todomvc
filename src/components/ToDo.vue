@@ -63,6 +63,21 @@ export default {
       if (this.visibility === 'active') return this.todos.filter(todo => !todo.completed)
       return this.todos
     }
+  },
+  created() {
+    const that = this
+    this.onHashChange = function () {
+      let visibility = window.location.hash.replace(/#\/?/, '')
+      if (visibility !== 'completed' && visibility !== 'active') {
+        visibility = 'all'
+      }
+      that.visibility = visibility
+    }
+    window.addEventListener('hashchange', this.onHashChange)
+    this.onHashChange()
+  },
+  destroyed() {
+    window.removeEventListener('hashchange', this.onHashChange)
   }
 }
 </script>
