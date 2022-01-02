@@ -1,11 +1,14 @@
 <template>
   <div>
-    <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo"></input>
+    <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo" />
     <ul class="todo-list">
-      <li class="todo" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
-        <input class="toggle" type="checkbox" v-model="todo.completed" />
-        <label>{{ todo.title }}</label>
-        <button class="destroy" @click="removeTodo(todo)"/>
+      <li class="todo" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+        <div class="view" v-show="todo != editedTodo">
+          <input class="toggle" type="checkbox" v-model="todo.completed" />
+          <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+          <button class="destroy" @click="removeTodo(todo)" />
+        </div>
+        <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo">
       </li>
     </ul>
   </div>
@@ -25,13 +28,17 @@ export default {
     removeTodo(todo) {
       const i = this.todos.findIndex(t => t.id === todo.id)
       this.todos.splice(i, 1)
+    },
+    editTodo(todo) {
+      this.editedTodo = todo
     }
   },
   data() {
     return {
       todos: [],
       newTodo: '',
-      uid: 0
+      uid: 0,
+      editedTodo: ''
     }
   }
 }

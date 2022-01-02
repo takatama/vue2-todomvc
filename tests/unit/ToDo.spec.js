@@ -74,4 +74,15 @@ describe('ToDo', () => {
     await addTodo('3rd task')
     expect(wrapper.vm.todos[1].id).toBe(2)
   })
+
+  it('shows .edit and hides .view when editing todo', async () => {
+    await addTodo('1st task')
+    expect(wrapper.find('.view').isVisible()).toBe(true)
+    expect(wrapper.find('.edit').isVisible()).toBe(false)
+
+    const label1st = wrapper.findAll('.view label').at(0)
+    await label1st.trigger('dblclick')
+    expect(wrapper.find('.view').isVisible()).toBe(false)
+    expect(wrapper.find('.edit').isVisible()).toBe(true)
+  })
 })
