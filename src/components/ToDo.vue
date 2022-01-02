@@ -8,7 +8,7 @@
           <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
           <button class="destroy" @click="removeTodo(todo)" />
         </div>
-        <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)">
+        <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)">
       </li>
     </ul>
   </div>
@@ -31,8 +31,13 @@ export default {
     },
     editTodo(todo) {
       this.editedTodo = todo
+      this.beforeEditCache = todo.title
     },
     doneEdit(todo) {
+      this.editedTodo = ''
+    },
+    cancelEdit(todo) {
+      todo.title = this.beforeEditCache
       this.editedTodo = ''
     }
   },

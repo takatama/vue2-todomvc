@@ -98,4 +98,13 @@ describe('ToDo', () => {
     expect(wrapper.find('.view').isVisible()).toBe(true)
     expect(wrapper.findAll('.view label').at(0).text()).toEqual('edited 1st task')
   })
+
+  it('renders original todo if editing is cancled', async () => {
+    await addTodo('1st task')
+    await wrapper.find('label').trigger('dblclick')
+    const editInput = wrapper.find('.edit')
+    await editInput.setValue('edited 1st task')
+    await editInput.trigger('keyup.esc')
+    expect(wrapper.find('label').text()).toEqual('1st task')
+  })
 })
