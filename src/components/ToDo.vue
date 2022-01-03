@@ -12,19 +12,21 @@
         <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)" @blur="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" v-todo-focus="todo == editedTodo">
       </li>
     </ul>
-    <span class="todo-count">{{ remining }} {{ remining | pluralize }} left</span>
-    <ul class="filters">
-      <li>
-        <a href="#/all" :class="{ selected: visibility == 'all' }">All</a>
-      </li>
-      <li>
-        <a href="#/active" :class="{ selected: visibility == 'active' }">Active</a>
-      </li>
-      <li>
-        <a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a>
-      </li>
-    </ul>
-    <button class="clear-completed" @click="removeCompleted" />
+    <footer class="footer" v-show="todos.length > 0">
+      <span class="todo-count">{{ remining }} {{ remining | pluralize }} left</span>
+      <ul class="filters">
+        <li>
+          <a href="#/all" :class="{ selected: visibility == 'all' }">All</a>
+        </li>
+        <li>
+          <a href="#/active" :class="{ selected: visibility == 'active' }">Active</a>
+        </li>
+        <li>
+          <a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a>
+        </li>
+      </ul>
+      <button class="clear-completed" @click="removeCompleted" />
+    </footer>
   </div>
 </template>
 

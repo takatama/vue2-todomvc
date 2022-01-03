@@ -237,4 +237,10 @@ describe('ToDo', () => {
     await addTodo('2nd task')
     expect(wrapper.find('.todo-count').text()).toBe('2 items left')
   })
+
+  it('renders footer', async () => {
+    expect(wrapper.find('.footer').isVisible()).toBe(false)
+    await addTodo('1st task')
+    expect(wrapper.find('.footer').isVisible()).toBe(true)
+  })
 })
