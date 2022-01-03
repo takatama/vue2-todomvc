@@ -1,38 +1,41 @@
 <template>
-  <div class="todoapp">
-    <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo" />
-    <section class="main" v-show="todos.length > 0">
-      <input class="toggle-all" type="checkbox" v-model="allDone" id="toggle-all" />
-      <label for="toggle-all" />
-      <ul class="todo-list">
-        <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
-          <div class="view" v-show="todo != editedTodo">
-            <input class="toggle" type="checkbox" v-model="todo.completed" />
-            <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-            <button class="destroy" @click="removeTodo(todo)" />
-          </div>
-          <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)" @blur="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" v-todo-focus="todo == editedTodo">
-        </li>
-      </ul>
-    </section>
-    <footer class="footer" v-show="todos.length > 0">
-      <span class="todo-count">{{ remining }} {{ remining | pluralize }} left</span>
-      <ul class="filters">
-        <li>
-          <a href="#/all" :class="{ selected: visibility == 'all' }">All</a>
-        </li>
-        <li>
-          <a href="#/active" :class="{ selected: visibility == 'active' }">Active</a>
-        </li>
-        <li>
-          <a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a>
-        </li>
-      </ul>
-      <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remining">Clear completed</button>
-    </footer>
-    <footer class="info">
-      <p>Double-click to edit a todo</p>
-    </footer>
+  <div>
+    <div class="todoapp">
+      <h1>todos</h1>
+      <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo" />
+      <section class="main" v-show="todos.length > 0">
+        <input class="toggle-all" type="checkbox" v-model="allDone" id="toggle-all" />
+        <label for="toggle-all" />
+        <ul class="todo-list">
+          <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+            <div class="view" v-show="todo != editedTodo">
+              <input class="toggle" type="checkbox" v-model="todo.completed" />
+              <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+              <button class="destroy" @click="removeTodo(todo)" />
+            </div>
+            <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)" @blur="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" v-todo-focus="todo == editedTodo">
+          </li>
+        </ul>
+      </section>
+      <footer class="footer" v-show="todos.length > 0">
+        <span class="todo-count">{{ remining }} {{ remining | pluralize }} left</span>
+        <ul class="filters">
+          <li>
+            <a href="#/all" :class="{ selected: visibility == 'all' }">All</a>
+          </li>
+          <li>
+            <a href="#/active" :class="{ selected: visibility == 'active' }">Active</a>
+          </li>
+          <li>
+            <a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a>
+          </li>
+        </ul>
+        <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remining">Clear completed</button>
+      </footer>
+   </div>
+   <footer class="info">
+     <p>Double-click to edit a todo</p>
+   </footer>
   </div>
 </template>
 
@@ -133,5 +136,8 @@ export default {
 </script>
 
 <style>
-
+@import 'https://unpkg.com/todomvc-app-css@2.4.1/index.css';
+[v-cloak] {
+  display: none;
+}
 </style>
