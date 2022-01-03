@@ -54,7 +54,7 @@ export default {
       this.editedTodo = todo
       this.beforeEditCache = todo.title
     },
-    doneEdit(todo) {
+    doneEdit() {
       this.editedTodo = ''
     },
     cancelEdit(todo) {
