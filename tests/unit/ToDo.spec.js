@@ -229,4 +229,12 @@ describe('ToDo', () => {
     expect(wrapper.find('.toggle-all').element.checked).toBe(true)
     expect(wrapper.findAll('.completed').length).toBe(2)
   })
+
+  it('renders todo-count', async () => {
+    expect(wrapper.find('.todo-count').text()).toBe('0 item left')
+    await addTodo('1st task')
+    expect(wrapper.find('.todo-count').text()).toBe('1 item left')
+    await addTodo('2nd task')
+    expect(wrapper.find('.todo-count').text()).toBe('2 items left')
+  })
 })

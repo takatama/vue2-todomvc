@@ -12,6 +12,7 @@
         <input class="edit" type="text" v-model="todo.title" v-show="todo == editedTodo" @keyup.enter="doneEdit(todo)" @blur="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" v-todo-focus="todo == editedTodo">
       </li>
     </ul>
+    <span class="todo-count">{{ remining }} {{ remining | pluralize }} left</span>
     <ul class="filters">
       <li>
         <a href="#/all" :class="{ selected: visibility == 'all' }">All</a>
@@ -84,6 +85,9 @@ export default {
       set(value) {
         this.todos.forEach(todo => todo.completed = value)
       }
+    },
+    remining() {
+      return this.filter.active().length
     }
   },
   created() {
@@ -111,6 +115,11 @@ export default {
   },
   destroyed() {
     window.removeEventListener('hashchange', this.onHashChange)
+  },
+  filters: {
+    pluralize: function(n) {
+      return n > 1 ? 'items' : 'item'
+    }
   }
 }
 </script>
