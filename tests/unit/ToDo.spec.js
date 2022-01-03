@@ -15,8 +15,11 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
+afterEach(async () => {
   wrapper.destroy()
+
+  window.location.hash = ''
+  await window.dispatchEvent(new Event('hashchange'))
 })
 
 describe('ToDo', () => {
@@ -178,6 +181,28 @@ describe('ToDo', () => {
     expect(wrapper.vm.visibility).toBe('all')
     expect(wrapper.findAll('.todo').length).toBe(3)
     expect(wrapper.findAll('.todo').at(0).text()).toBe('1st task')
+  })
+
+  it('renders filters', async () => {
+    expect(wrapper.find('a[href="#/all"]').classes()).toContain('selected')
+    await addTodo('1st task')
+    await addTodo('2nd task')
+    await addTodo('3rd task')
+    await wrapper.findAll('.toggle').at(1).trigger('click')
+    expect(wrapper.findAll('.todo').length).toBe(3)
+
+    window.location.hash = '#/active'
+    await window.dispatchEvent(new Event('hashchange'))
+    expect(wrapper.find('a[href="#/active"]').classes()).toContain('selected')
+    expect(wrapper.findAll('.todo').length).toBe(2)
+
+    window.location.hash = '#/completed'
+    await window.dispatchEvent(new Event('hashchange'))
+    expect(wrapper.find('a[href="#/completed"]').classes()).toContain('selected')
+    expect(wrapper.findAll('.todo').length).toBe(1)
+
+    window.location.hash = ''
+    await window.dispatchEvent(new Event('hashchange'))
   })
 
   it('renders toggle-all checkbox', async () => {
