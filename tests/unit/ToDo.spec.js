@@ -243,4 +243,12 @@ describe('ToDo', () => {
     await addTodo('1st task')
     expect(wrapper.find('.footer').isVisible()).toBe(true)
   })
+
+  it('renders todo-app, main and info', async () => {
+    expect(wrapper.find('.todo-app').exists()).toBe(true)
+    expect(wrapper.find('.main').isVisible()).toBe(false)
+    await addTodo('1st task')
+    expect(wrapper.find('.main').isVisible()).toBe(true)
+    expect(wrapper.find('.info').exists()).toBe(true)
+  })
 })
