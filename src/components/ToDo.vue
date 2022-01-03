@@ -1,8 +1,9 @@
 <template>
-  <div class="todo-app">
-    <input class="toggle-all" type="checkbox" v-model="allDone" />
+  <div class="todoapp">
     <input class="new-todo" type="text" v-model="newTodo" @keyup.enter="addTodo" />
     <section class="main" v-show="todos.length > 0">
+      <input class="toggle-all" type="checkbox" v-model="allDone" id="toggle-all" />
+      <label for="toggle-all" />
       <ul class="todo-list">
         <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
           <div class="view" v-show="todo != editedTodo">

@@ -119,17 +119,17 @@ describe('ToDo', () => {
 
   it('renders original todo if editing is canceled', async () => {
     await addTodo('1st task')
-    await wrapper.find('label').trigger('dblclick')
+    await wrapper.find('.view label').trigger('dblclick')
     const editInput = wrapper.find('.edit')
     await editInput.setValue('edited 1st task')
     await editInput.trigger('keyup.esc')
-    expect(wrapper.find('label').text()).toEqual('1st task')
+    expect(wrapper.find('.view label').text()).toEqual('1st task')
   })
 
   it('gets focus to editing input when start editing', async () => {
     expect(document.activeElement.className).not.toBe('edit')
     await addTodo('1st task')
-    await wrapper.find('label').trigger('dblclick')
+    await wrapper.find('.view label').trigger('dblclick')
     expect(document.activeElement.className).toBe('edit')
   })
 
@@ -250,8 +250,8 @@ describe('ToDo', () => {
     expect(wrapper.find('.footer').isVisible()).toBe(true)
   })
 
-  it('renders todo-app, main and info', async () => {
-    expect(wrapper.find('.todo-app').exists()).toBe(true)
+  it('renders todoapp, main and info', async () => {
+    expect(wrapper.find('.todoapp').exists()).toBe(true)
     expect(wrapper.find('.main').isVisible()).toBe(false)
     await addTodo('1st task')
     expect(wrapper.find('.main').isVisible()).toBe(true)
