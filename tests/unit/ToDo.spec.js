@@ -203,10 +203,16 @@ describe('ToDo', () => {
   })
 
   it('renders clear completed button', async () => {
+    expect(wrapper.find('.clear-completed').isVisible()).toBe(false)
+
     await addTodo('1st task')
     await addTodo('2nd task')
     await addTodo('3rd task')
+    expect(wrapper.find('.clear-completed').isVisible()).toBe(false)
+
     await wrapper.findAll('.toggle').at(1).trigger('click')
+    expect(wrapper.find('.clear-completed').isVisible()).toBe(true)
+
     expect(wrapper.findAll('.todo').length).toBe(3)
     await wrapper.find('.clear-completed').trigger('click')
     expect(wrapper.findAll('.todo').length).toBe(2)

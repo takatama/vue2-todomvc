@@ -27,7 +27,7 @@
           <a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a>
         </li>
       </ul>
-      <button class="clear-completed" @click="removeCompleted" />
+      <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remining">Clear completed</button>
     </footer>
     <footer class="info">
       <p>Double-click to edit a todo</p>
