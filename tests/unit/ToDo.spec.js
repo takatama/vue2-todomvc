@@ -200,9 +200,16 @@ describe('ToDo', () => {
     await window.dispatchEvent(new Event('hashchange'))
     expect(wrapper.find('a[href="#/completed"]').classes()).toContain('selected')
     expect(wrapper.findAll('.todo').length).toBe(1)
+  })
 
-    window.location.hash = ''
-    await window.dispatchEvent(new Event('hashchange'))
+  it('renders clear completed button', async () => {
+    await addTodo('1st task')
+    await addTodo('2nd task')
+    await addTodo('3rd task')
+    await wrapper.findAll('.toggle').at(1).trigger('click')
+    expect(wrapper.findAll('.todo').length).toBe(3)
+    await wrapper.find('.clear-completed').trigger('click')
+    expect(wrapper.findAll('.todo').length).toBe(2)
   })
 
   it('renders toggle-all checkbox', async () => {

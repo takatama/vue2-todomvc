@@ -23,6 +23,7 @@
         <a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a>
       </li>
     </ul>
+    <button class="clear-completed" @click="removeCompleted" />
   </div>
 </template>
 
@@ -51,6 +52,9 @@ export default {
     cancelEdit(todo) {
       todo.title = this.beforeEditCache
       this.editedTodo = ''
+    },
+    removeCompleted() {
+      this.todos = this.filter.active()
     }
   },
   data() {
